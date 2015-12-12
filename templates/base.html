@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <title>{% block title %}{% endblock %}</title>
+    {% load staticfiles %}
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+    <script src="{% static 'assets/js/ie-emulation-modes-warning.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mine.js' %}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<div class="page-header">
+  <h1 class="text-center">Магазин электроники</h1>
+</div>
+<div class="container">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="navbar navbar-inverse">
+        <li class="btn btn-default navbar-btn"><a href="/">Каталог</a></li>
+        <li class="btn btn-default navbar-btn"><a href="{% url 'cart' %}">Корзина</a></li>
+        <li class="btn btn-default navbar-btn"><a href="{% url 'about' %}">Про нас</a></li>
+      </ul>
+    </div>
+</div>
+<div class="container"> 
+        {% block body %}
+            <div class="row">
+                <div class="twelve columns">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</body>
+</html>

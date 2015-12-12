@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Shop{% endblock %}
+
+
+{% block body %}
+    <div class="text-center">
+        <h5>
+            Выбирайте товар, который Вас интересует по производителям
+        </h5>
+        {% for category in categories %}
+            {% if selected_category == category %}<b>{% endif %}
+            <div class="btn btn-default navbar-btn">
+                <a href="{% url 'products' category.id %}">{{ category }}</a>
+            </div>
+            {% if selected_category == category %}</b>{% endif %}
+        {% endfor %}
+    </div>
+    {% for product in products %}
+        {% if not forloop.counter|divisibleby:"2" %}
+            <div class="container">
+        {% endif %}
+            <div class="well">
+                <div>
+                    <img width="100px;" src="{{ product.image.url }}" alt="{{ product }}">
+                </div>
+                <div>
+                    <a href="{% url 'product' product.id %}"><h6>{{ product }}</h6></a>
+                </div>
+                <div>
+                    {{ product.price }}$
+                </div>
+                <form action="{% url 'add_to_cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="product" value="{{ product.id }}">
+                    <input type="submit" value="Добавить в корзину">
+                </form>                
+            </div>
+        {% if forloop.counter|divisibleby:"2" %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
